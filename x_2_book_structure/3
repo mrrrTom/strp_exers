@@ -1,0 +1,10 @@
+- Write an assay: What can a good programming language do for you and what can`t you expect it to help with?
+
+First of all I`ll will try to figure out, what role has programming language in my job as programmer. 
+Each programming language (each language) has some minimal knowledge and skills, that you should have to write correct programm.
+And we have some branches here: technical programming, business programming. Because this two types of programmes have different priorities. 
+For programming some business logic you have need for heavy using of abstractions. So here language can offer convnient OOP realization, for example C# has it, assmbler language does not.
+But there are programms, which main complexability is some techincal challenge, for example infrastructure management applications. There you want to have simple tools for accessing desired instruments.
+For example api calls, operating system calls and etc.
+Third part is language syntaxis and semantics. Language can be logical, can be close to english language and etc, I think theese charectiristicst are from linguistics and from this part of view we can consider programming language as english or any other language, that we speak on.
+And that is it. More tools language can offer with help of community and language users. For example C# has great ammout of libraries for all possible situations, or C++ has libraries for memory management.
