@@ -1,0 +1,7 @@
+- What are the main programming styles supported by C++?
+
+According to Bjarne Stroustrup C++ is multiparadigm programming language, it supports several styles of programming:
+C-style programming
+Data abstraction
+Object-oriented programming
+Generic programming
