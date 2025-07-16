@@ -1,0 +1,5 @@
+- Briefly describe the design aims of C++ and comment on the extent to which C++ meets those.
+Programming language design has two main goals: create tool instructing machine to act and tool to describe subject. So C++ creation aimed at second goal, trying not to loose first one completely.
+After decades of interprise using of C++ it can be resumed, that goal was accomplished. 
+Now C++ - is a language for use in wide area of different subjects. It has convinient abstraction mechanism and great tools for different abstractions realizations.
+Also C++ saved C positions as low level language in industry. 
