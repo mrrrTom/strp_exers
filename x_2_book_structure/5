@@ -1,0 +1,38 @@
+- List five language features offered by the 1985 version of C++, five features added by C++98, and finally five new features added by C++11. In each case, order the features in order of importance and for each feature write a sentence describing its role in programming.
+
+1985
+	1. virtual functions
+		virtual functions and virtual calls are very usefull mechanism of realization runtime polymorhpism, which is great part of object oriented programming. 
+	2. function and operator overloading
+		overloading is a common mechanism for ralization compile time polymorphism, which also is very important in oop
+	3. the keyword const
+		const keyword gives us opportunity to specify not changing variables, fields, parametrc, etc. It heavily used in modern C++ and greatly emproves compile time check (it helps avoiding errors on runtime)
+	4. references
+		references in C++ added great semantics for object manipulations and helps avoiding errors, which we could miss with pointers insted
+	5. scope resolution operator
+		this operator gives us opportunity for heavy using of namespaces, which is necessary for using a lot of libraries, which is obligatory part of modern C++
+
+C++98
+	1. template instantiations
+		template instantiation is obligatory part of templates feature, which created great tools and flexibilty in using compile time polymorphism
+	2. member templates
+		member templates improved working with templating in C++
+	3. RTTI(dynamic_cast, typeid)
+		Run-time type information - exposing data type at runtime - mechanism, helping to implement run-time polymorphism
+	4. mutable
+		mutability is important part of multithreading in C++, which id obligatory for a lot of modern applications
+	5. covariant return types
+		supporting covariant return types improved using inheritance and polymorphism and so OOP 
+ 
+C++11
+	1. move constructors and move assignment
+		great feature, that gave additional tools for tunning coping and object creation (which oppened door for some greate optimization techniques)
+	2. constexpr and literal types
+		constexpr gave oppotunity for avoiding run-time errors with additional compile check semantics
+	3. variadic templates
+		improved compile-time polymorhism realisation, improving templating
+	4. multithreaded memory model
+		it broadened opportunities for interprise multhithreaded programming
+	5. lambda expressions
+		lambda expressions is technique that is wide used in computer since and implementing it in C++ broaded language possibilities
+
