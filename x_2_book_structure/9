@@ -1,0 +1,5 @@
+- list three (or more) advantages from having a library as part of the standard.
+
+- before adding code to standard library, concept is analysed and checked hardly, so the chance to gain better library is higher, when it is in standard then alone
+- components in standard library are hardly used, so errors and vulnerabilities are found much quicklier, than in some outstanding lib
+- if the library is part of standard library, than it used a lot and you can find a lot of help with it in community and use examples
