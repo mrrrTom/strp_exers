@@ -1,0 +1,8 @@
+- List five libraries that you would have liked to be part of the standard
+
+I don`t know C++ labriries outside the standard library as I don`t have interprice experience with C++. So I have some generic ideas about areas to have libraries in standard:
+1. serialization. It is important and errors creating part for applications with business logic and spreaded systems.
+2. error handling. there is diagnostic library in standrd library, but errors dealing is big and very important part for every application
+3. benchmarking. very usefull thing for high loaded system
+4. databases. mundatory part for most user applications
+5. concurrency. there are a lot off tasks with concurrency, that are very complicated, errors generating and usefull, so it is opportunity for widening standard library
