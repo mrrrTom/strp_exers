@@ -1,0 +1,19 @@
+- list the major components of the C++ standard library
+
+C++ standard library consist of several components, which are contained inside "sublibraries":
+* language support library
+* concepts library
+* diagnostic library
+* general utilities library
+* strings library
+* containers library
+* iterators library
+* ranges library
+* algorithms library
+* numeric library
+* time library
+* localization library
+* input/output library
+* regular expressions library
+* atomic operations library
+* thread support library
