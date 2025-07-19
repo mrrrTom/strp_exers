@@ -1,0 +1,7 @@
+- From $1.3 pick five suggestions that to you looks most likely to help improve your programming style.
+
+1. don`t try to imitate C# programming style on C++
+2. use C++ abstraction mechanism - don`t fall into C-style
+3. look throug the standard library
+4. remember, that variabalse are not refeneces by design
+5. rely more on compile-time polymorphism 
