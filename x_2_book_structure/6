@@ -1,0 +1,5 @@
+- Describe the difference between dynamic (run-time) and static (compile-time) type checking and outline the strengths and weaknesses of each.
+
+Both procedures - dynamic and static type checking are procedures, that ckeck are types of expressions, variables, parameters and etc are not conflicting. The difference is, that static check runs on compile time, while dynamic check runs on run-time. So for implementing this checks there are some language tools, for example, base C++ semantics helps at compile-time check, and RTTI helps us at run-time check.
+The main advantage of static check is, that errors arise at compile-time, so you can fix them without running the program.
+And the main advantage of dynamic check is, that it is more flexible, for example, you can set a type depending on inmput values.
