@@ -1,0 +1,12 @@
+- make a "top-ten list" of helpful design and programming rules. Hint $2
+
+1. imagine ideas(concepts) in code
+2. don`t focus on unnecessary
+3. put dependencies between the ideas in code
+4. isolated ideas should be isolated code parts
+5. choose solutions that will be checked static
+6. simple ideas implement simply
+7. use standard library instead of creating your own
+8. C++ is not widen C
+9. use move semantics
+10. use templates instead of adding a lot of new types
