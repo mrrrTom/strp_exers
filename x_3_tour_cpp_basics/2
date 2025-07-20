@@ -1,0 +1,5 @@
+- What does a compiler do? What does a linker do?
+
+1. Compiler generates object files from source code.
+Object file contains machine code compiled form source code and some metan data.
+2. Linker generates executable file from object files.
