@@ -1,0 +1,4 @@
+- What is an invariant and what good might it do?
+
+Invariant is something, that doesnot changes under some transformation. For example, whe we are talking about class invariants - it is some condition, that is true from object creation through its deletion.
+It is very usefull thing, that help us catching bad situations on early stages.
