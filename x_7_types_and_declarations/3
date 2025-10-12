@@ -1,0 +1,59 @@
+- Find 5 different c++ constructs for which the meaning is undefined ($6.1).
+Find 5 different c++  constructs for which the meaning is implementation-
+defined.
+
+1) undefined:
+
+```cpp
+const int size = 10;
+char page[size];
+
+void f() {
+	page[size+size] = 7;
+}
+```
+
+```cpp
+int top = 1;
+int bot = 0;
+std::cout << (top / bot); 
+```
+
+```cpp
+int top = 1;
+int bot = 0;
+std::cout << (top % bot);
+```
+
+```cpp
+int result;
+int right = numeric_limits<int>.max();
+result = right * 2;
+cout << result;
+```
+
+```cpp
+int* nptr = nullptr;
+cout << *nptr;
+```
+
+2) impl defined:
+```cpp
+std::cout << numeric_limits<char>.is_signed;
+```
+
+```cpp
+std::cout << numeric_limits<char>.digits;
+```
+
+```cpp
+std::cout << numeric_limits<int>.digits;
+```
+
+```cpp
+std::cout << numeric_limits<long>.digits;
+```
+
+```cpp
+std::cout << numeric_limits<long long>.digits;
+```
