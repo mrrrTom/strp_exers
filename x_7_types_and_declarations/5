@@ -1,0 +1,39 @@
+- For each declaration in 6.3, do the following: If the declaration is not a
+defenition, write a definition for it. If the declaration is a defenition,
+write a declaration for it that is not also a defenition.
+
+1) char ch; // declaration + defenition
++
+char ch = 'w';
+
+2) auto count = 1; // declaration + defenition
++
+extern int count;
+
+3) const char* name = "Njal"; // declaration + defenition
++
+extern const char* name;
+
+4) struct Date {int d, m, y;}; // declaration + defenition
++
+struct Date;
+
+5) int day(Date* p) {return p->d;} // declaration + defenition
++
+int day(Date* p);
+
+6) double sqrt(double); // declaration
++
+double sqrt(double k) { return k; }
+
+7) extern int error_number; // declaration
++
+extern int error_number = 0;
+
+9) struct User; // declaration
++
+struct User {int name, surname;};
+
+10) int count; // declaration + defenition
++
+extern int count;
