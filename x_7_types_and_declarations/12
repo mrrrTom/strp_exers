@@ -1,0 +1,7 @@
+- What is the longest local name you can use in a C++ program on your system?
+What is the longest external name you can use in a C++ program on your system?
+Are there any restrictions on the characters you can use in a name?
+
+- C++ does not have constraints on name size, and no limits with g++
+first symb must be a letter or '_'
+name must not be a reserved by C++ word
