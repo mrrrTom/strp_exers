@@ -1,0 +1,33 @@
+- Write declarations for the following: 
+1) a pointer to a character, 
+char symb = 't';
+char* symbptr = &symb;
+
+2) an array of 10 integers, 
+int arr[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+
+3) a reference to an array of 10 integers, 
+int arr[10] = { 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 };
+int (&arrref)[10] = arr;
+
+4) a pointer to an array of strings, 
+std::string arr[] = { "first", "second" };
+std::string (&arrptr)[] = &arr;
+
+5) a pointer to a pointer to a character,
+char symb = 't';
+char* ptr1 = &symb;
+char** ptr2 = &ptr1;
+
+6) a constant integer,
+const int num = 1;
+
+7) a pointer to a constant integer, 
+const int num = 7;
+const int* numptr = &num;
+
+8) and a constant pointer to an integer.
+int num = 7;
+int* const numcptr = &num;
+
+Initialize each one.
