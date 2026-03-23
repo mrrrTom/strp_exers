@@ -1,0 +1,6 @@
+- What, on your system, are the restrictions on the pointer types char*, int*,
+and void*? For example, may an int* have an odd value? Hint: alignment.
+
+char* - no restriction (pointer can be 1*n + 0)
+int* - restricted as 4*n + 0
+void* - not restricted, as can be the pointer to char
