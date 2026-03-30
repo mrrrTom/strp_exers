@@ -1,0 +1,32 @@
+- Define functios f(char), g(char&), and h(const char&). Call them with the
+arguments 'a',
+f copies => creates temp var
+g - illegal cannot cast const ref ro ref
+h - doesnot create temp
+
+49,
+f creates temp
+g - illegal
+h - doesnot create temp
+
+3300,
+f - illegal (overflow) 
+g - illegal
+h - illegal (overflow)
+
+c,
+f - creates temp
+g - doesnot create temp
+h - doesnot create temp
+
+uc,
+f - creates temp
+g - illegal - tries to create temp
+h - creates temp
+
+and sc,
+f - creates temp
+g - illegal - tries to create temp
+h - creates temp
+where c is a char, us is an unsigned char, and sc is a signed char. Which calls
+are legal? Which calls cause the compiler to introduce a temporary variable?
