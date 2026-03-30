@@ -1,0 +1,24 @@
+- Use an alias (using) to define the types:
+unsingned char,
+using u_char = unsigned char;
+
+const unsigned char,
+using c_u_char = const unsigned char; 
+
+pointer to integer,
+using int_ptr = int*;
+
+pointer to pointer to char,
+using char_ptr_ptr = char**;
+
+pointer to array of char,
+using char_arr_ptr = char(*)[];
+
+array of 7 pointers to int,
+using arr_7_int_ptr = int*[7];
+
+pointer to an array of 7 pointers to int,
+using arr_ptr_7_int_ptr = int* (*)[7];
+
+and array of 8 arrays of 7 pointers to int.
+using arr_78 = int* [8][7];
