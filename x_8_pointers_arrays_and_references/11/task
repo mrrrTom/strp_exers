@@ -1,0 +1,3 @@
+- Read a sequence of words from input. Use Quit as a word that terminates the
+input. Print the words in the order they were entered. Don`t print a word twice.
+Modify the program to sort the words before printing them.
