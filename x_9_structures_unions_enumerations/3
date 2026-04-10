@@ -1,0 +1,6 @@
+- Find an example where it would make sense to use a name in its own
+initializer.
+
+1. some_struct* s = (some_struct*) malloc(sizeof(s));
+2. some_struct s(&s);
+
