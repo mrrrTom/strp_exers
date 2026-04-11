@@ -1,0 +1,6 @@
+- Implement an enum called season with enumerators spring, summer, autumn, and
+winter. Define operators ++ and -- for season. Define input (>>) and output (<<)
+operations for season, providing string values. Provide a way to control the
+mapping between season values and their string representations. For example, I
+might want the strings to reflect the Danish names for the seasons. For futher
+study, see Chapter 39.
