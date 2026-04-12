@@ -1,0 +1,25 @@
+- Rewrite the following for-statement as an equivalent  while-statement:
+for(i = 0; i != max_length; i++)
+	if (input_line[i] == '?')
+		quest_count++;
+Rewrite it to use a pointer as the controlled variable, that is, so that the
+test is of the form *p == '?'. Rewrite it to use a reange-for.
+
+1.
+	while(i != max_length) {
+		if(input_line[i] == '?') quest_count++;
+		i++;
+	}
+
+2. 
+	char* p = &input_line[0];
+	while(i != max_length) {
+		if(*p == '?') quest_count++;
+		p++;
+		i++;
+	}
+
+3.
+	for(char symb : input_line) {
+		if(symb == '?') quest_count++;
+	}
