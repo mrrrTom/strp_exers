@@ -10,8 +10,7 @@ code -> code: char - /, \"
 ml_comment -> ml_comment: char - *, /
 ml_comment -> presumably_stop_ml_comment: *
 presumably_stop_ml_comment -> code: /
-presumably_stop_ml_comment -> quote: \"
-presumably_stop_ml_comment -> ml_comment: char - /, \"
+presumably_stop_ml_comment -> ml_comment: char - /
 
 sl_comment -> code: \\n
 sl_comment -> presumably_sl_comment_error: /

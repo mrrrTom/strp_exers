@@ -47,10 +47,13 @@ namespace dv_comment_eraser {
 	{};
 	
 	// + quote_print
-	// + sl_comment_print
-	// + presumably_sl_comment_error_print
 	void simple_print(char c, ostream& os) { os << c; };
-	
+
+	// + ml_comment_print
+	// + presumably_ml_comment_error
+	// + presumably_stop_ml_comment
+	// + comment_error_print
+	// + presumably_sl_comment_error_print
 	void empty_print(char c, ostream& os) {};
 
 	void code_print(char c, ostream& os) {
@@ -58,15 +61,42 @@ namespace dv_comment_eraser {
 		os << c;
 	}
 
-	void presumably_comment(char c, ostream& os) {
+	void presumably_comment_print(char c, ostream& os) {
 		if (c == '/' || c == '"' || c == '*') return;
 		os << '/';
 		os << c;
 	}
 
+	void error_print(char c, ostream& os) {
+		os << '\0';
+	}
+
+	void sl_comment_print(char c, ostream& os) {
+		if (c != '\n') return;
+		os << c;
+	}
 
 	void (*comment_eraser::get_print(state s))(char c, ostream&) {
-		return &simple_print;
+		switch(s) {
+			case state::quote:
+				return &simple_print;
+			case state::ml_comment:
+			case state::presumably_ml_comment_error:
+			case state::presumably_stop_ml_comment:
+			case state::presumably_sl_comment_error:
+				return &empty_print;
+			case state::sl_comment:
+				return &sl_comment_print;
+			case state::code:
+				return &code_print;
+			case state::presumably_comment:
+				return &presumably_comment_print;
+			case state::finish:
+			case state::comment_error:
+				return &error_print;
+		}
+
+		throw runtime_error("state not implemented");
 	}
 
 	void comment_eraser::print_comment_free() {
@@ -137,10 +167,7 @@ namespace dv_comment_eraser {
 				}
 				break;
 			case state::presumably_stop_ml_comment:
-				if(symb == '"') {
-					_cur_state = state::quote;
-				}
-				else if (symb == '/') {
+				if (symb == '/') {
 					_cur_state = state::code;
 				}
 				else {
