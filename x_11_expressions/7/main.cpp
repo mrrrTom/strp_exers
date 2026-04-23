@@ -1,5 +1,7 @@
 #include <iostream>
 #include <string>
+#include <string.h>
+
 #include <dv_str.hpp>
 using namespace std;
 
