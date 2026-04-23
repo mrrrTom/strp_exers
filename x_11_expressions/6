@@ -1,0 +1,7 @@
+- Fully paranthesize the following expressions:
+*(p++)
+*(--p)
+++(a--)
+(int*)(p->m)
+*(p.m)
+*(a[i])
