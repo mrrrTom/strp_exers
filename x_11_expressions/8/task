@@ -1,0 +1,3 @@
+- Modify the program from $X.11[3] to also compute the median.
+
+*** assume missprint: $X.11[3] must be $X.11[2]
