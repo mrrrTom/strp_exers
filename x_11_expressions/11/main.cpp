@@ -15,11 +15,10 @@ struct Token{
 };
 
 int no_of_errors;
-int line = 1;
 
 double error(const string& s) {
 	no_of_errors++;
-	cerr << "error: " << s << " at line: " << line << endl;
+	cerr << "error: " << s  << endl;
 	return 1;
 }
 
@@ -42,7 +41,6 @@ class Token_stream {
 				case 0:
 					return ct = {Kind::end};
 				case '\n':
-					line++;
 				case ';':
 					return ct = {Kind::print};
 				case '*':
