@@ -1,12 +1,15 @@
 #include <iostream>
 #include <map>
+#include <string>
+#include <sstream>
+
 using namespace std;
 
 enum class Kind : char {
 	name, 
 	number, 
 	end, // =
-	endl, // \n 
+	endl, // \n
 	assign, // :=
 	plus = '+',
 	minus = '-', 
@@ -19,19 +22,26 @@ enum class Kind : char {
 
 struct Token{
 	Kind kind;
+	string raw_value;
 	string string_value;
 	double number_value;
+	Token(Kind kind_, char raw_) : kind{kind_}, raw_value{raw_} {}
+	Token(Kind kind_, string raw_) : kind{kind_}, raw_value{raw_} {}
+	Token(Kind kind_, string raw_, string val_) : kind{kind_}, raw_value{raw_},
+		string_value{val_} {}
+	Token(Kind kind_, string raw_, double num_) : kind{kind_}, raw_value{raw_},
+	number_value{num_} {}
 };
 
+// bad idea to make it global..
 int errors_count = 0;
 int line_count = 1;
 
 double error(const string& s) {
-	no_of_errors++;
-	cerr << "error: " << s << " at line: " << line << endl;
+	errors_count++;
+	cerr << "error: " << s << " at line: " << line_count << endl;
 	return 1;
 }
-
 
 class Token_stream {
 	public:
@@ -41,41 +51,44 @@ class Token_stream {
 		Token get() {
 			char ch;
 			do {
-				if (!ip -> get(ch)) return ct = {Kind::end};
-			} while (ch != '\n' && isspace(ch)); //todo need endl skip or not?
+				if (!ip -> get(ch)) return ct = Token(Kind::end, ch);
+			} while (ch != '\n' && isspace(ch));
 			
 			switch (ch) {
-				case '=':
-					return ct = {Kind::end};
 				case '\n':
-					line++;
-					return ct = {Kind::endl};
+					line_count++;
+					return ct = Token(Kind::endl, ch); 
+				case '=':
+					return ct = Token(Kind::end, ch);
+				case ':':
+					ip -> get(ch);
+					if (ch != '=') error("expected '='");
+					return ct = Token(Kind::assign, ":=");
 				case '*':
 				case '/':
 				case '+':
 				case '-':
 				case '(':
 				case ')':
-				case ':':
-					ip -> get(ch);
-					if (ch != '=') error("expected '='");
-					return ct = {Kind::assign};
+					return ct = Token(static_cast<Kind>(ch), ch);
 				case '0': case '1': case '2': case '3': case '4': case '5':
 				case '6': case '7': case '8': case '9': case '.':
 					ip -> putback(ch);
-					*ip >> ct.number_value;
-					ct.kind = Kind::number;
-					return ct;
+					double num_val;
+					*ip >> num_val;
+					return ct = Token(Kind::number,
+							to_string(num_val),
+							num_val);
 				default:
 					if (isalpha(ch)) {
 						ip -> putback(ch);
-						*ip >> ct.string_value;
-						ct.kind = Kind::name;
-						return ct;
+						string str_val;
+						*ip >> str_val;
+						return ct = Token(Kind::name, str_val, str_val);
 					}
 
 					error("bad token");
-					return ct = {Kind::print};
+					return ct = Token(Kind::end, ch);
 			}
 		}
 	
@@ -88,59 +101,75 @@ class Token_stream {
 
 		istream* ip;
 		bool owns;
-		Token ct {Kind::end};
+		Token ct = Token(Kind::end, '\0');
 };
 
-Token_stream ts {cin};
-map<string, vector<Token>> names_replacement;
-double expr(bool);
-double prim (bool get) {
-	if (get) ts.get();
+map<string, string> names_replacement;
 
-	switch (ts.current().kind) {
+class Calculator {
+	public:
+		double expr (bool);
+		double prim (bool);
+		double term (bool);
+		void calculate(void);
+		Calculator(Token_stream ts, ostream& os) : _ts{ts}, _os{os} {};
+	private:
+		// bad idea, that calculator knows smth about streams
+		Token_stream _ts;
+		ostream& _os;
+};
+
+double Calculator::prim (bool get) {
+	if (get) _ts.get();
+
+	switch (_ts.current().kind) {
 		case Kind::number:
 			{
-				double v = ts.current().number_value;
-				ts.get();
+				double v = _ts.current().number_value;
+				_ts.get();
 				return v;
 			}
 		case Kind::name:
 			{
-				double& v = table[ts.current().string_value];
-				if (ts.get().kind == Kind::assign) {
-					while (ts.get().kind != Kind::print) {
-						v.push_back(ts.current());
+				if (_ts.get().kind == Kind::assign) {
+					string val = "";
+					while (_ts.get().kind != Kind::endl) {
+						val += _ts.current().raw_value;
 					}
+
+					names_replacement[_ts.current().string_value] = val;
+					return 0;
 				}
 				else {
-					// create new token stream, replace ts
-					// in ts input some stream<vector<Token ...,
-					// that outputs simply chars from token list
-					// that stream simply runs out to the end
-					// and returns some value with our left
-					// and thats our hitler
-				}
+					// dirty hack, but cool
+					stringstream ss
+							{names_replacement[_ts.current().string_value]};
+					stringstream os;
+					Calculator func_calc(ss, os);
 
-				return v;
+					// and it is not operations, it is lambda function))
+					func_calc.calculate();
+					double v = stod(os.str());
+					return v;
+				}
 			}
 		case Kind::minus:
 			return -prim(true);
 		case Kind::lp:
 			{
 				auto e = expr(true);
-				if (ts.current().kind != Kind::rp) return error("')' expected");
-				ts.get();
+				if (_ts.current().kind != Kind::rp) return error("')' expected");
+				_ts.get();
 				return e;
 			}
 		default:
 			return error("primary expected");
 	}
 }
-double term(bool get) {
+double Calculator::term(bool get) {
 	double left = prim(get);
-
 	for(;;) {
-		switch (ts.current().kind) {
+		switch (_ts.current().kind) {
 			case Kind::mul:
 				left *= prim(true);
 				break;
@@ -156,11 +185,10 @@ double term(bool get) {
 		}
 	}
 }
-
-double expr(bool get) {
+double Calculator::expr(bool get) {
 	double left = term(get);
 	for(;;) {
-		switch (ts.current().kind) {
+		switch (_ts.current().kind) {
 			case Kind::plus:
 				left += term(true);
 				break;
@@ -173,19 +201,20 @@ double expr(bool get) {
 	}
 }
 
-void calculate() {
+void Calculator::calculate() {
 	for (;;) {
-		ts.get();
-		if (ts.current().kind == Kind::end) break;
-		if (ts.current().kind == Kind::print) continue;
-		cout << expr(false) << endl;
+		_ts.get();
+		if (_ts.current().kind == Kind::end) break;
+		if (_ts.current().kind == Kind::endl) continue;
+		_os << expr(false) << endl;
 	}
 }
 
 int main(void) {
-	table["pi"] = 3.1415926;
-	table["e"] = 2.71828;
-	calculate();
-
-	return no_of_errors;
+	names_replacement["pi"] = 3.1415926;
+	names_replacement["e"] = 2.71828;
+	Token_stream ts{cin};
+	Calculator calc(ts, cout);
+	calc.calculate();
+	return errors_count;
 }
