@@ -1,0 +1,2 @@
+- Copy all even non-zero elements of an int[] into a vector<int>. Use a pointer
+and ++ for the traversal.
