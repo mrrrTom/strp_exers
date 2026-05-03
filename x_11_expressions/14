@@ -1,0 +1,4 @@
+- Convert the desk calculator to use a symbol structure instead of using the
+static variables number value and string value.
+
+I don`t understand that - my calculator does not have the static variables...
