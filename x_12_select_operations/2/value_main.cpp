@@ -1,20 +1,26 @@
 #include <iostream>
+#include <thread>
 using namespace std;
 
-int main() {
+void run(void) {
 	unsigned long int i = 0;
 	try {
 		while(true) {
-			int* k = new int[1000000000](3);
+			int* k = new int[100](3);
 			i++;
 		}
 	}
 	catch(const bad_alloc&) {
-		cout << "allocated with value: " << (i * (sizeof(int[1000000000]))) << endl;
+		cout << "shunk size: " << sizeof(int[100]) << endl;
+		cout << "shunks allocated empty: " << i << endl;
 	}
 	catch(...) {
 		cout << "smth thrown" << endl;
 	}
+}
 
+int main() {
+	thread t(run);
+	t.join();
 	return 0;
 }
