@@ -1,0 +1,5 @@
+- Write a simple loop calculating a su;m of elements (like std::accumulate()).
+Write it in a dozen or more ways using for-statements, range-for statements,
+the for each() algoritm, using indices, pointers, and iterators, using "plain
+code", function objects, and lambdas, and using differen element types. See if
+you can find any performance differences between the different versions.
