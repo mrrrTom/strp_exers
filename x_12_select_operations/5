@@ -1,0 +1,9 @@
+- Find a program of a few thousand lines of code, preferably a program used for
+a real-world task, rather than an exercise solution. Count the number of casts
+(of all kinds). If not already done, classify all casts by turning them into
+named casts. Eliminate as many static_casts, reinterpret_casts and const_casts
+as possible. This will most likely involve adding specific type conversion
+functions, templates, etc.
+
+My guess - i can eliminate all of them, but it will take some time...
+don`t have it
