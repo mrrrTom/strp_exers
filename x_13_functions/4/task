@@ -1,0 +1,4 @@
+- Write a program that reads an arbitrary number (possible limited to some
+maximum number) of files whose names are given as command-line arguments and
+writes them one after another on cout. Because this program concatenates its
+arguments to produce its output, you might call it cat.
