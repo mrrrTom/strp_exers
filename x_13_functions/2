@@ -1,0 +1,4 @@
+- What does the following mean? What would it be good for?
+using riffi = int (&) (int, int);
+--------------------------------------------------------------------------------
+it is reference to a function... all standart ref`s pos comparing to the pointers
