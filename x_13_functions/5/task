@@ -1,0 +1,7 @@
+- Convert a small C program to C++. Modify the header files to declare all
+functions called and to declare the type of every argument. Where possible,
+replace #defines with enum, const, constexpr or inline. Remove extern
+declarations from .cpp files and if necessary convert all function defenitions
+to C++ function definition syntax. Replace calls of malloc() and free() with new
+and delete. Remove unnecessary casts.
+took this proj: https://github.com/wfelipe/simple-dns/tree/master/src
