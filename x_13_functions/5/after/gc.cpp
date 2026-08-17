@@ -1,12 +1,12 @@
-#include "gc.h"
+#include "gc.hpp"
 
 /* ========================================================================== */
 /*  mini_gc_malloc                                                            */
 /* ========================================================================== */
-static Header* add_heap(size_t req_size)
+static header* add_heap(size_t req_size)
 {
     void *p;
-    Header *align_p;
+    header *align_p;
 
     if (gc_heaps_used >= HEAP_LIMIT) {
         fputs("OutOfMemory Error", stderr);
@@ -20,7 +20,7 @@ static Header* add_heap(size_t req_size)
         return NULL;
 
     /* address alignment */
-    align_p = gc_heaps[gc_heaps_used].slot = (Header *)ALIGN((size_t)p, PTRSIZE);
+    align_p = gc_heaps[gc_heaps_used].slot = (header*)ALIGN((size_t)p, PTRSIZE);
     req_size = gc_heaps[gc_heaps_used].size = req_size;
     align_p->size = req_size;
     align_p->next_free = align_p;
@@ -29,21 +29,21 @@ static Header* add_heap(size_t req_size)
     return align_p;
 }
 
-static Header* grow(size_t req_size)
+static header* grow(size_t req_size)
 {
-    Header *cp, *up;
+    header* cp, *up;
 
     if (!(cp = add_heap(req_size)))
         return NULL;
 
-    up = (Header *) cp;
+    up = (header*) cp;
     mini_gc_free((void *)(up+1));
     return free_list;
 }
 
 void* mini_gc_malloc(size_t req_size)
 {
-    Header *p, *prevp;
+    header* p, *prevp;
     size_t do_gc = 0;
 
     req_size = ALIGN(req_size, PTRSIZE);
@@ -83,12 +83,11 @@ void* mini_gc_malloc(size_t req_size)
     }
 }
 
-void
-mini_gc_free(void *ptr)
+void mini_gc_free(void *ptr)
 {
-    Header *target, *hit;
+    header* target, *hit;
 
-    target = (Header *)ptr - 1;
+    target = (header*)ptr - 1;
 
     /* search join point of target to free_list */
     for (hit = free_list; !(target > hit && target < hit->next_free); hit = hit->next_free)
@@ -127,8 +126,7 @@ mini_gc_free(void *ptr)
 /* ========================================================================== */
 
 
-static GC_Heap *
-is_pointer_to_heap(void *ptr)
+static gc_heap* is_pointer_to_heap(void *ptr)
 {
     size_t i;
 
@@ -147,12 +145,11 @@ is_pointer_to_heap(void *ptr)
     return NULL;
 }
 
-static Header *
-get_header(GC_Heap *gh, void *ptr)
+static header* get_header(gc_heap *gh, void *ptr)
 {
-    Header *p, *pend, *pnext;
+    header* p, *pend, *pnext;
 
-    pend = (Header *)(((size_t)gh->slot) + gh->size);
+    pend = (header*)(((size_t)gh->slot) + gh->size);
     for (p = gh->slot; p < pend; p = pnext) {
         pnext = NEXT_HEADER(p);
         if ((void *)(p+1) <= ptr && ptr < (void *)pnext) {
@@ -173,8 +170,7 @@ void gc_init(void)
     stack_start = ((void *)&dummy);
 }
 
-static void
-set_stack_end(void)
+static void set_stack_end(void)
 {
     void *tmp;
     long dummy;
@@ -187,11 +183,10 @@ set_stack_end(void)
 
 static void gc_mark_range(void *start, void *end);
 
-static void
-gc_mark(void * ptr)
+static void gc_mark(void* ptr)
 {
-    GC_Heap *gh;
-    Header *hdr;
+    gc_heap* gh;
+    header *hdr;
 
     /* mark check */
     if (!(gh = is_pointer_to_heap(ptr))) return;
@@ -201,24 +196,22 @@ gc_mark(void * ptr)
 
     /* marking */
     FL_SET(hdr, FL_MARK);
-    DEBUG(printf("mark ptr : %p, header : %p\n", ptr, hdr));
+    //DEBUG(printf("mark ptr : %p, header : %p\n", ptr, hdr));
 
     /* mark children */
     gc_mark_range((void *)(hdr+1), (void *)NEXT_HEADER(hdr));
 }
 
-static void
-gc_mark_range(void *start, void *end)
+static void gc_mark_range(void *start, void *end)
 {
-    void *p;
+    char* p;
 
-    for (p = start; p < end; p++) {
+    for (p = reinterpret_cast<char*>(start); p < end; p++) {
         gc_mark(*(void **)p);
     }
 }
 
-static void
-gc_mark_register(void)
+static void gc_mark_register(void)
 {
     jmp_buf env;
     size_t i;
@@ -229,8 +222,7 @@ gc_mark_register(void)
     }
 }
 
-static void
-gc_mark_stack(void)
+static void gc_mark_stack(void)
 {
     set_stack_end();
     if (stack_start > stack_end) {
@@ -244,14 +236,14 @@ gc_mark_stack(void)
 static void gc_sweep(void)
 {
     size_t i;
-    Header *p, *pend, *pnext;
+    header *p, *pend, *pnext;
 
     for (i = 0; i < gc_heaps_used; i++) {
-        pend = (Header *)(((size_t)gc_heaps[i].slot) + gc_heaps[i].size);
+        pend = (header*)(((size_t)gc_heaps[i].slot) + gc_heaps[i].size);
         for (p = gc_heaps[i].slot; p < pend; p = NEXT_HEADER(p)) {
             if (FL_TEST(p, FL_ALLOC)) {
                 if (FL_TEST(p, FL_MARK)) {
-                    DEBUG(printf("mark unset : %p\n", p));
+                    //DEBUG(printf("mark unset : %p\n", p));
                     FL_UNSET(p, FL_MARK);
                 }
                 else {
@@ -262,8 +254,7 @@ static void gc_sweep(void)
     }
 }
 
-void
-add_roots(void * start, void * end)
+void add_roots(void * start, void * end)
 {
     void *tmp;
     if (start > end) {

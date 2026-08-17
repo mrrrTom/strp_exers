@@ -1,6 +1,6 @@
 #
 CC = g++
-SRCS = gc.cpp main.cpp
+SRCS = gc.hpp gc.cpp main.cpp
 
 all: clean gc
 
