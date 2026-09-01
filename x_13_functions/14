@@ -1,0 +1,15 @@
+- Look at some programs to get an idea of the diversity of styles of names
+actually used. How are uppercase letters used? How is the underscore used?
+When are short names such as i and x used?
+
+-looked
+-uppercase -> upper camel case for example - beggining of the name. I don`t like
+it... because i don`t want to work with the two object with the names : First
+and first for example.
+- underscore. quite usefule - for example, it is used in the snake case.
+I prefer this style. it brings you more space between the parts of the name, so
+it is easier for me to read fast. underscores also are used for distinction of
+the name scopes. For example ( __ for some system staff, - for the private
+fields, etc)
+- short names are used, when it is well known places, or obvious (for example,
+in the for cycle - (int i = 0; i <...)
