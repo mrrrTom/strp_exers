@@ -1,0 +1,10 @@
+- What is wrong with these macro definitions?
+#define PI = 3.141593;
+must not be ';' and '='
+but if u mean it - to place this string "= 3.141593;" - it is ok
+
+#define MAX(a.b) a>b?a:b
+'.' -> ','
+
+#define fac(a) (a)*fac((a-1)
+a recursion (direct usage) is forbidden
