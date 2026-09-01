@@ -12,18 +12,16 @@ int main (int argc, char *argv[]) {
 		}
 	}
 
-	string input;
-	while(cin >> input) {
+	char symb;
+	int i = 0;
+	while(cin.get(symb)) {
 		if (_key_count == 0) {
-			cout << input << endl;
+			cout << symb;
 			continue;
 		}
 
-		for (int i = 0; i < input.length(); ++i) {
-			cout << static_cast<char>((input[i] ^ _key[i % _key_count]));
-		}
-
-		cout << endl;
+		cout << static_cast<char>((symb ^ _key[i % _key_count]));
+		i++;
 	}
 
 	return 0;
