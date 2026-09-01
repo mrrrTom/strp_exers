@@ -1,0 +1,4 @@
+- How would you choose names for pointer to function types defined using a type
+alias?
+
+for example: compare_fn (function nature)
