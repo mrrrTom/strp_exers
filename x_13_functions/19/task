@@ -1,0 +1,3 @@
+- Add functions such as sqrt(), log(), and sin() to the desk calculator from
+$10.2. Hint: Predefine the names and call the functions through an array of
+pointers to functions. Don`t forget to check the arguments in function call.
