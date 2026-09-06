@@ -47,7 +47,6 @@ class Token_stream {
 			do {
 				if (!ip -> get(ch)) return ct = {Kind::end};
 			} while (ch != '\n' && isspace(ch));
-			
 			switch (ch) {
 				case 0:
 					return ct = {Kind::end};
@@ -81,9 +80,9 @@ class Token_stream {
 					return ct = {Kind::print};
 			}
 		}
-	
+
 		const Token& current() { return ct; }
-		
+
 		void set_input(istream& s) { close(); ip = &s; owns = false; }
 		void set_input(istream* p) { close(); ip = p; owns = true; }
 	private:
@@ -96,16 +95,16 @@ class Token_stream {
 
 Token_stream ts {cin};
 double expr(bool);
-double sin(double inp) {
+double sin_c(double inp) {
 	return std::sin(inp);
 }
-double log(double inp) {
+double log_c(double inp) {
 	return std::log(inp);
 }
-double sqrt(double inp) {
+double sqrt_c(double inp) {
 	return std::sqrt(inp);
 }
-unordered_map<string, double (*)(double)> funcs { {"sin", sin}, {"log", log}, {"sqrt", sqrt}};
+unordered_map<string, double (*)(double)> funcs { {"sin", sin_c}, {"log", log_c}, {"sqrt", sqrt_c}};
 double prim (bool get) {
 	if (get) ts.get();
 
@@ -123,10 +122,10 @@ double prim (bool get) {
 					ts.get();
 					if (ts.current().kind != Kind::lp) return error("bad fuction call");
 					auto expr_result = expr(true);
-					ts.get();
 					if (ts.current().kind != Kind::rp) return error("bad function call");
 					ts.get();
-					return (funcs[name_val](expr_result));
+					double (*func)(double) = funcs[name_val];
+					return (func(expr_result));
 				}
 				else {
 					double& v = table[ts.current().string_value];
